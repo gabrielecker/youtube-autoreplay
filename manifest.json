@@ -1,0 +1,22 @@
+{
+    "manifest_version": 2,
+
+    "name": "YouTube Auto-replay",
+    "description": "This extension enables YouTube to automatically replay videos",
+    "version": "1.0",
+
+    "browser_action": {
+        "default_icon": "icon.png",
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": ["https://www.youtube.com/*"],
+            "js": ["autoreplay.js"]
+        }
+    ],
+    "permissions": [
+        "activeTab",
+        "storage"
+    ]
+}
