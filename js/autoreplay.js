@@ -2,12 +2,14 @@
 
 let target = document.querySelector('.ytp-time-current'),
     durationTime = document.querySelector('.ytp-time-duration'),
-    replayButton = document.querySelector('.ytp-play-button');
+    replayButton = document.querySelector('.ytp-play-button'),
+    timer = 0;
 
 let timeObserver = new MutationObserver(function(mutations) {
     if(mutations[1].addedNodes[0].data === durationTime.innerHTML) {
-        setTimeout(function() {
-            replayButton.click()
+        clearTimeout(timer);
+        timer = setTimeout(function() {
+            replayButton.click();
         }, 500);
     }
 });
