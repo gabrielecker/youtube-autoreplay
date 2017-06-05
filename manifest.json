@@ -16,7 +16,7 @@
     "content_scripts": [
         {
             "matches": ["https://www.youtube.com/*"],
-            "js": ["js/autoreplay.js"]
+            "js": ["js/options.js", "js/autoreplay.js"]
         }
     ],
     "permissions": [

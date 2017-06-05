@@ -1,7 +1,6 @@
 "use strict";
 
-let target = document.querySelector('.ytp-time-current'),
-    durationTime = document.querySelector('.ytp-time-duration'),
+let durationTime = document.querySelector('.ytp-time-duration'),
     replayButton = document.querySelector('.ytp-play-button'),
     timer = 0;
 
@@ -14,15 +13,16 @@ let timeObserver = new MutationObserver(function(mutations) {
     }
 });
 
-function toggleAutoreplay(enabled) {
-    if(enabled) {
-        timeObserver.observe(target, { attributes: true, childList: true, characterData: true });
-    } else {
-        timeObserver.disconnect();
-    }
-    return enabled;
-}
+chrome.storage.onChanged.addListener(function(changes, areaName) {
+    let target = document.querySelector('.ytp-time-current');
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    sendResponse({ enabled: toggleAutoreplay(request.enabled) });
+    chrome.storage.sync.get("status", function(result) {
+        if(result.status) {
+            // Auto-replay activated!
+            timeObserver.observe(target, observerOptions);
+        } else {
+            // Auto-replay deactivated!
+            timeObserver.disconnect();
+        }
+    });
 });
